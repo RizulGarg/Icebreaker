@@ -6,7 +6,27 @@ logo.src = 'logo.png';
 const container = document.createElement('div');
 container.setAttribute('class', 'container');
 
+const buttonContainer = document.createElement('div');
+container.setAttribute('class', 'container');
+
+const addInterestButton = document.createElement("button");
+addInterestButton.innerHTML = "Add interest";
+addInterestButton.addEventListener("click", addInterestFun);
+
+const addPost = document.createElement("button");
+addPost.innerHTML = "Add post";
+addPost.addEventListener("click", addPostFun);
+
+const startChat = document.createElement("button");
+startChat.innerHTML = "Start intelligent chat";
+startChat.addEventListener("click", startChatFun);
+
+buttonContainer.appendChild(addInterestButton);
+buttonContainer.appendChild(addPost);
+buttonContainer.appendChild(startChat);
+
 app.appendChild(logo);
+app.appendChild(buttonContainer);
 app.appendChild(container);
 
 var request = new XMLHttpRequest();
@@ -37,6 +57,16 @@ request.onload = function () {
         errorMessage.textContent = `Gah, it's not working!`;
         app.appendChild(errorMessage);
     }
+}
+
+function addPostFun() {
+    window.location = "http://localhost:4567/add/post";
+}
+function addInterestFun() {
+    window.location = "http://localhost:4567/add/interest";
+}
+function startChatFun() {
+    window.location = "http://localhost:4567/startChat/route/profileId";
 }
 
 request.send();

@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import inMemoryMaps.InterestToPosts;
 import inMemoryMaps.UserToInterests;
 import lombok.SneakyThrows;
+import model.AddInterestRequest;
 import model.AddPostToInterestsRequest;
 import model.FetchInterestsRequest;
 import model.FetchInterestsResponse;
@@ -32,10 +33,23 @@ public class HelloWorld {
                 "<meta http-equiv = \"refresh\" content = \"2; url = http://localhost:4567/feed.html\" />\n"
                 ));
 
-        //addInterest
-//        get("/interest/add", (req, res) -> {
+        get("/add/interest", ((req, res) ->
+            "<meta http-equiv = \"refresh\" content = \"2; url = http://localhost:4567/addUserInterest.html\" />\n"
+                ));
 
-//        });
+        get("/add/post", ((req, res) ->
+                "<meta http-equiv = \"refresh\" content = \"2; url = http://localhost:4567/addPost.html\" />\n"
+        ));
+
+//        addInterest
+        get("/interest/add/:input", (req, res) -> {
+            AddInterestRequest request = new AddInterestRequest();
+            List<String> input = Arrays.asList(req.params("input").split(","));
+            request.setUserName(input.get(0));
+            request.setInterest(input.get(1));
+            userToInterests.addInterest(request);
+            return new Gson().toJson(userToInterests);
+        });
 
 //        fetchPostsForInterests
         get("/feed/:interests", (req, res) -> {
